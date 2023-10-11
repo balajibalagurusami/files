@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokemon Species Explorer</title>
+    <style>
+        #pokemon-container {
+            text-align: center;
+        }
+
+        #pokemon-image {
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="pokemon-container">
+        <h2 id="pokemon-name"></h2>
+        <img id="pokemon-image" src="" alt="Pokemon Image">
+        <br>
+        <button id="prev-button">Previous</button>
+        <button id="next-button">Next</button>
+    </div>
+
+    <script>
+        const pokemonData = [
+            { index: 1, name: "Bulbasaur", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/001.png" },
+			{ index: 2, name: "Ivysaur", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/002.png" },
+			{ index: 3, name: "Venusaur", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/003.png" },
+			{ index: 4, name: "Charmander", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/004.png" },
+			{ index: 5, name: "Charmeleon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/005.png" },
+			{ index: 6, name: "Charizard", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/006.png" },
+			{ index: 7, name: "Squirtle", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/007.png" },
+			{ index: 8, name: "Wartortle", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/008.png" },
+			{ index: 9, name: "Blastoise", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/009.png" },
+			{ index: 10, name: "Caterpie", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/010.png" },
+			{ index: 11, name: "Metapod", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/011.png" },
+			{ index: 12, name: "Butterfree", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/012.png" },
+			{ index: 13, name: "Weedle", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/013.png" },
+			{ index: 14, name: "Kakuna", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/014.png" },
+			{ index: 15, name: "Beedrill", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/015.png" },
+			{ index: 16, name: "Pidgey", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/016.png" },
+			{ index: 17, name: "Pidgeotto", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/017.png" },
+			{ index: 18, name: "Pidgeot", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/018.png" },
+			{ index: 19, name: "Rattata", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/019.png" },
+			{ index: 20, name: "Raticate", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/020.png" },
+			{ index: 21, name: "Spearow", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/021.png" },
+			{ index: 22, name: "Fearow", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/022.png" },
+			{ index: 23, name: "Ekans", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/023.png" },
+			{ index: 24, name: "Arbok", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/024.png" },
+			{ index: 25, name: "Pikachu", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/025.png" },
+			{ index: 26, name: "Raichu", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/026.png" },
+			{ index: 27, name: "Sandshrew", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/027.png" },
+			{ index: 28, name: "Sandslash", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/028.png" },
+			{ index: 29, name: "Nidoran♀", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/029.png" },
+			{ index: 30, name: "Nidorina", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/030.png" },
+			{ index: 31, name: "Nidoqueen", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/031.png" },
+			{ index: 32, name: "Nidoran♂", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/032.png" },
+			{ index: 33, name: "Nidorino", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/033.png" },
+			{ index: 34, name: "Nidoking", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/034.png" },
+			{ index: 35, name: "Clefairy", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/035.png" },
+			{ index: 36, name: "Clefable", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/036.png" },
+			{ index: 37, name: "Vulpix", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/037.png" },
+			{ index: 38, name: "Ninetales", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/038.png" },
+			{ index: 39, name: "Jigglypuff", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/039.png" },
+			{ index: 40, name: "Wigglytuff", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/040.png" },
+			{ index: 41, name: "Zubat", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/041.png" },
+			{ index: 42, name: "Golbat", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/042.png" },
+			{ index: 43, name: "Oddish", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/043.png" },
+			{ index: 44, name: "Gloom", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/044.png" },
+			{ index: 45, name: "Vileplume", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/045.png" },
+			{ index: 46, name: "Paras", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/046.png" },
+			{ index: 47, name: "Parasect", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/047.png" },
+			{ index: 48, name: "Venonat", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/048.png" },
+			{ index: 49, name: "Venomoth", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/049.png" },
+			{ index: 50, name: "Dugtrio", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/050.png" },
+			{ index: 51, name: "Meowth", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/051.png" },
+			{ index: 52, name: "Persian", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/052.png" },
+			{ index: 53, name: "Psyduck", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/053.png" },
+			{ index: 54, name: "Golduck", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/054.png" },
+			{ index: 55, name: "Mankey", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/055.png" },
+			{ index: 56, name: "Primeape", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/056.png" },
+			{ index: 57, name: "Growlithe", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/057.png" },
+			{ index: 58, name: "Arcanine", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/058.png" },
+			{ index: 59, name: "Poliwag", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/059.png" },
+			{ index: 60, name: "Poliwhirl", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/060.png" },
+			{ index: 61, name: "Poliwrath", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/061.png" },
+			{ index: 62, name: "Abra", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/062.png" },
+			{ index: 63, name: "Kadabra", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/063.png" },
+			{ index: 64, name: "Alakazam", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/064.png" },
+			{ index: 65, name: "Machop", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/065.png" },
+			{ index: 66, name: "Machoke", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/066.png" },
+			{ index: 67, name: "Machamp", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/067.png" },
+			{ index: 68, name: "Bellsprout", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/068.png" },
+			{ index: 69, name: "Weepinbell", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/069.png" },
+			{ index: 70, name: "Victreebel", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/070.png" },
+			{ index: 71, name: "Tentacool", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/071.png" },
+			{ index: 72, name: "Tentacruel", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/072.png" },
+			{ index: 73, name: "Geodude", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/073.png" },
+			{ index: 74, name: "Graveler", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/074.png" },
+			{ index: 75, name: "Golem", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/075.png" },
+			{ index: 76, name: "Ponyta", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/076.png" },
+			{ index: 77, name: "Rapidash", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/077.png" },
+			{ index: 78, name: "Slowpoke", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/078.png" },
+			{ index: 79, name: "Slowbro", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/079.png" },
+			{ index: 80, name: "Magnemite", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/080.png" },
+			{ index: 81, name: "Magneton", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/081.png" },
+			{ index: 82, name: "Farfetch'd", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/082.png" },
+			{ index: 83, name: "Doduo", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/083.png" },
+			{ index: 84, name: "Dodrio", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/084.png" },
+			{ index: 85, name: "Seel", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/085.png" },
+			{ index: 86, name: "Dewgong", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/086.png" },
+			{ index: 87, name: "Grimer", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/087.png" },
+			{ index: 88, name: "Muk", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/088.png" },
+			{ index: 89, name: "Shellder", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/089.png" },
+			{ index: 90, name: "Cloyster", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/090.png" },
+			{ index: 91, name: "Gastly", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/091.png" },
+			{ index: 92, name: "Haunter", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/092.png" },
+			{ index: 93, name: "Gengar", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/093.png" },
+			{ index: 94, name: "Onix", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/094.png" },
+			{ index: 95, name: "Drowzee", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/095.png" },
+			{ index: 96, name: "Hypno", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/096.png" },
+			{ index: 97, name: "Krabby", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/097.png" },
+			{ index: 98, name: "Kingler", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/098.png" },
+			{ index: 99, name: "Voltorb", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/099.png" },
+			{ index: 100, name: "Electrode", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/100.png" },
+			{ index: 101, name: "Exeggcute", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/101.png" },
+			{ index: 102, name: "Exeggutor", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/102.png" },
+			{ index: 103, name: "Cubone", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/103.png" },
+			{ index: 104, name: "Marowak", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/104.png" },
+			{ index: 105, name: "Hitmonlee", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/105.png" },
+			{ index: 106, name: "Hitmonchan", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/106.png" },
+			{ index: 107, name: "Lickitung", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/107.png" },
+			{ index: 108, name: "Koffing", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/108.png" },
+			{ index: 109, name: "Weezing", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/109.png" },
+			{ index: 110, name: "Rhyhorn", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/110.png" },
+			{ index: 111, name: "Rhydon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/111.png" },
+			{ index: 112, name: "Chansey", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/112.png" },
+			{ index: 113, name: "Tangela", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/113.png" },
+			{ index: 114, name: "Kangaskhan", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/114.png" },
+			{ index: 115, name: "Horsea", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/115.png" },
+			{ index: 116, name: "Seadra", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/116.png" },
+			{ index: 117, name: "Goldeen", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/117.png" },
+			{ index: 118, name: "Seaking", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/118.png" },
+			{ index: 119, name: "Staryu", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/119.png" },
+			{ index: 120, name: "Starmie", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/120.png" },
+			{ index: 121, name: "Mime", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/121.png" },
+			{ index: 122, name: "Scyther", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/122.png" },
+			{ index: 123, name: "Jynx", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/123.png" },
+			{ index: 124, name: "Electabuzz", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/124.png" },
+			{ index: 125, name: "Magmar", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/125.png" },
+			{ index: 126, name: "Pinsir", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/126.png" },
+			{ index: 127, name: "Tauros", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/127.png" },
+			{ index: 128, name: "Magikarp", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/128.png" },
+			{ index: 129, name: "Gyarados", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/129.png" },
+			{ index: 130, name: "Lapras", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/130.png" },
+			{ index: 131, name: "Ditto", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/131.png" },
+			{ index: 132, name: "Eevee", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/132.png" },
+			{ index: 133, name: "Vaporeon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/133.png" },
+			{ index: 134, name: "Jolteon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/134.png" },
+			{ index: 135, name: "Flareon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/135.png" },
+			{ index: 136, name: "Porygon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/136.png" },
+			{ index: 137, name: "Omanyte", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/137.png" },
+			{ index: 138, name: "Omastar", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/138.png" },
+			{ index: 139, name: "Kabuto", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/139.png" },
+			{ index: 140, name: "Kabutops", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/140.png" },
+			{ index: 141, name: "Aerodactyl", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/141.png" },
+			{ index: 142, name: "Snorlax", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/142.png" },
+			{ index: 143, name: "Articuno", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/143.png" },
+			{ index: 144, name: "Zapdos", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/144.png" },
+			{ index: 145, name: "Moltres", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/145.png" },
+			{ index: 146, name: "Dratini", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/146.png" },
+			{ index: 147, name: "Dragonair", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/147.png" },
+			{ index: 148, name: "Dragonite", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/148.png" },
+			{ index: 149, name: "Mewtwo", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/149.png" },
+			{ index: 150, name: "Mew", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/150.png" },
+			{ index: 151, name: "Chikorita", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/151.png" },
+			{ index: 152, name: "Bayleef", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/152.png" },
+			{ index: 153, name: "Meganium", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/153.png" },
+			{ index: 154, name: "Cyndaquil", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/154.png" },
+			{ index: 155, name: "Quilava", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/155.png" },
+			{ index: 156, name: "Typhlosion", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/156.png" },
+			{ index: 157, name: "Totodile", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/157.png" },
+			{ index: 158, name: "Croconaw", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/158.png" },
+			{ index: 159, name: "Feraligatr", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/159.png" },
+			{ index: 160, name: "Sentret", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/160.png" },
+			{ index: 161, name: "Furret", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/161.png" },
+			{ index: 162, name: "Hoothoot", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/162.png" },
+			{ index: 163, name: "Noctowl", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/163.png" },
+			{ index: 164, name: "Ledyba", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/164.png" },
+			{ index: 165, name: "Ledian", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/165.png" },
+			{ index: 166, name: "Spinarak", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/166.png" },
+			{ index: 167, name: "Ariados", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/167.png" },
+			{ index: 168, name: "Crobat", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/168.png" },
+			{ index: 169, name: "Chinchou", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/169.png" },
+			{ index: 170, name: "Lanturn", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/170.png" },
+			{ index: 171, name: "Pichu", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/171.png" },
+			{ index: 172, name: "Cleffa", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/172.png" },
+			{ index: 173, name: "Igglybuff", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/173.png" },
+			{ index: 174, name: "Togepi", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/174.png" },
+			{ index: 175, name: "Togetic", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/175.png" },
+			{ index: 176, name: "Natu", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/176.png" },
+			{ index: 177, name: "Xatu", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/177.png" },
+			{ index: 178, name: "Mareep", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/178.png" },
+			{ index: 179, name: "Flaaffy", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/179.png" },
+			{ index: 180, name: "Ampharos", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/180.png" },
+			{ index: 181, name: "Bellossom", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/181.png" },
+			{ index: 182, name: "Marill", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/182.png" },
+			{ index: 183, name: "Azumarill", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/183.png" },
+			{ index: 184, name: "Sudowoodo", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/184.png" },
+			{ index: 185, name: "Politoed", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/185.png" },
+			{ index: 186, name: "Hoppip", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/186.png" },
+			{ index: 187, name: "Skiploom", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/187.png" },
+			{ index: 188, name: "Jumpluff", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/188.png" },
+			{ index: 189, name: "Aipom", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/189.png" },
+			{ index: 190, name: "Sunkern", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/190.png" },
+			{ index: 191, name: "Sunflora", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/191.png" },
+			{ index: 192, name: "Yanma", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/192.png" },
+			{ index: 193, name: "Wooper", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/193.png" },
+			{ index: 194, name: "Quagsire", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/194.png" },
+			{ index: 195, name: "Espeon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/195.png" },
+			{ index: 196, name: "Umbreon", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/196.png" },
+			{ index: 197, name: "Murkrow", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/197.png" },
+			{ index: 198, name: "Slowking", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/198.png" },
+			{ index: 199, name: "Misdreavous", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/199.png" },
+			{ index: 200, name: "Unown", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/200.png" },
+			{ index: 201, name: "Wobbuffet", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/201.png" },
+			{ index: 202, name: "Girafarig", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/202.png" },
+			{ index: 203, name: "Pineco", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/203.png" },
+			{ index: 204, name: "Forretress", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/204.png" },
+			{ index: 205, name: "Dunsparce", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/205.png" },
+			{ index: 206, name: "Gligar", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/206.png" },
+			{ index: 207, name: "Steelix", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/207.png" },
+			{ index: 208, name: "Snubbull", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/208.png" },
+			{ index: 209, name: "Granbull", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/209.png" },
+			{ index: 210, name: "Qwilfish", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/210.png" },
+			{ index: 211, name: "Scizor", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/211.png" },
+			{ index: 212, name: "Shuckle", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/212.png" },
+			{ index: 213, name: "Heracross", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/213.png" },
+			{ index: 214, name: "Sneasel", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/214.png" },
+			{ index: 215, name: "Teddiursa", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/215.png" },
+			{ index: 216, name: "Ursaring", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/216.png" },
+			{ index: 217, name: "Slugma", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/217.png" },
+			{ index: 218, name: "Magcargo", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/218.png" },
+			{ index: 219, name: "Swinub", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/219.png" },
+			{ index: 220, name: "Piloswine", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/220.png" },
+			{ index: 221, name: "Corsola", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/221.png" },
+			{ index: 222, name: "Remoraid", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/222.png" },
+			{ index: 223, name: "Octillery", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/223.png" },
+			{ index: 224, name: "Delibird", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/224.png" },
+			{ index: 225, name: "Mantine", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/225.png" },
+			{ index: 226, name: "Skarmory", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/226.png" },
+			{ index: 227, name: "Houndour", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/227.png" },
+			{ index: 228, name: "Houndoom", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/228.png" },
+			{ index: 229, name: "Kingdra", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/229.png" },
+			{ index: 230, name: "Phanpy", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/230.png" },
+			{ index: 231, name: "Donphan", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/231.png" },
+			{ index: 232, name: "Porygon2", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/232.png" },
+			{ index: 233, name: "Stantler", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/233.png" },
+			{ index: 234, name: "Smeargle", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/234.png" },
+			{ index: 235, name: "Tyrogue", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/235.png" },
+			{ index: 236, name: "Hitmontop", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/236.png" },
+			{ index: 237, name: "Smoochum", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/237.png" },
+			{ index: 238, name: "Elekid", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/238.png" },
+			{ index: 239, name: "Magby", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/239.png" },
+			{ index: 240, name: "Miltank", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/240.png" },
+			{ index: 241, name: "Blissey", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/241.png" },
+			{ index: 242, name: "Raikou", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/242.png" },
+			{ index: 243, name: "Entei", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/243.png" },
+			{ index: 244, name: "Suicune", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/244.png" },
+			{ index: 245, name: "Larvitar", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/245.png" },
+			{ index: 246, name: "Pupitar", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/246.png" },
+			{ index: 247, name: "Tyranitar", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/247.png" },
+			{ index: 248, name: "Lugia", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/248.png" },
+			{ index: 249, name: "Ho-Oh", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/249.png" },
+			{ index: 250, name: "Celebi", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/250.png" },
+			{ index: 251, name: "Celebi", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/251.png" },
+			{ index: 252, name: "Treecko", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/252.png" },
+			{ index: 253, name: "Grovyle", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/253.png" },
+			{ index: 254, name: "Sceptile", image: "https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/254.png" }
+
+            // Add more Pokemon data here...
+        ];
+
+        let currentIndex = 0;
+
+        const pokemonNameElement = document.getElementById("pokemon-name");
+        const pokemonImageElement = document.getElementById("pokemon-image");
+        const prevButton = document.getElementById("prev-button");
+        const nextButton = document.getElementById("next-button");
+
+        function showPokemon(index) {
+            const pokemon = pokemonData[index];
+            if (pokemon) {
+                pokemonNameElement.textContent = `${pokemon.index} = ${pokemon.name}`;
+                pokemonImageElement.src = pokemon.image;
+            }
+        }
+
+        function goToPreviousPokemon() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showPokemon(currentIndex);
+            }
+        }
+
+        function goToNextPokemon() {
+            if (currentIndex < pokemonData.length - 1) {
+                currentIndex++;
+                showPokemon(currentIndex);
+            }
+        }
+
+        prevButton.addEventListener("click", goToPreviousPokemon);
+        nextButton.addEventListener("click", goToNextPokemon);
+
+        showPokemon(currentIndex);
+    </script>
+</body>
+</html>
